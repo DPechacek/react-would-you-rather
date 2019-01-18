@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Link} from "react-router-dom";
 
 class QuestionOverview extends Component {
   render() {
@@ -13,36 +14,20 @@ class QuestionOverview extends Component {
           <div className="card-header text-left">
             <h3>{this.props.author.name} asks:</h3>
           </div>
-          <div className="row">
+          <div className="row p-1">
             <div className="col-md-6">
               <div className="card-img-bottom p-1 rounded-circle" style={backgroundImage}>
               </div>
             </div>
             <div className="col-md-6">
-              <div className="card-block">
+              <div className="card-block p-3">
                 <h2 className="card-title">Would you rather?</h2>
-                <form className='p-1'>
-                  <div className="input-group">
-                    <div className="input-group-prepend">
-                      <div className="input-group-text">
-                        <input type="radio" aria-label="Radio button for following text input" value='optionOne'/>
-                      </div>
-                    </div>
-                    <label className='form-control align-baseline'>{this.props.question.optionOne.text}</label>
-                  </div>
-                  <span className='input-group'>
-                    <p className='form-control border-0 font-weight-bold'>OR</p>
-                  </span>
-                  <div className="input-group">
-                    <div className="input-group-prepend">
-                      <div className="input-group-text">
-                        <input type="radio" aria-label="Radio button for following text input" value='option2'/>
-                      </div>
-                    </div>
-                    <label className='form-control align-baseline'>{this.props.question.optionTwo.text}</label>
-                  </div>
-                  <button className="btn btn-primary" type="submit">Submit</button>
-                </form>
+                <div className='p-1'>
+                  <label className='form-control align-baseline border-0'>...{this.props.question.optionOne.text}...</label>
+                  <Link to={`/question/${this.props.question.id}`}>
+                    <button className="btn btn-primary" type="submit">View Poll</button>
+                  </Link>
+                </div>
               </div>
             </div>
           

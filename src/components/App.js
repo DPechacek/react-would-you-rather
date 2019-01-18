@@ -6,7 +6,7 @@ import Login from "./Login";
 import { handleInitialData } from "../actions/shared";
 import Nav from "./Nav";
 import Home from './Home';
-import Dashboard from "./Dashboard";
+import QuestionDetail from "./QuestionDetail";
 
 class App extends Component {
 
@@ -30,6 +30,7 @@ class App extends Component {
                                             <Nav/>
                                             <Route path='/' exact component={Login}/>
                                             <Route path='/home' exact component={Home}/>
+                                            <Route path='/question/:id' component={QuestionDetail}/>
                                         </div>
                                 }
                             </div>
