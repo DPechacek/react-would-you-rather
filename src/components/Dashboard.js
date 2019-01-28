@@ -19,10 +19,10 @@ class Dashboard extends Component {
               
               <div className="tab-content">
                 <div className="tab-pane active container" id="unansweredQuestions">
-                  <QuestionList key='unansweredQuestions' questions={this.props.unansweredQuestionIds}/>
+                  <QuestionList key='unansweredQuestions' questions={this.props.unansweredQuestionIds} answered={false}/>
                 </div>
                 <div className="tab-pane container" id="answeredQuestions">
-                  <QuestionList key='answeredQuestions' questions={this.props.answeredQuestionIds}/>
+                  <QuestionList key='answeredQuestions' questions={this.props.answeredQuestionIds} answered={true}/>
                 </div>
               </div>
             </div>

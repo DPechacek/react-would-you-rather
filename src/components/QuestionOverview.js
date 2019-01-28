@@ -24,9 +24,16 @@ class QuestionOverview extends Component {
                 <h2 className="card-title">Would you rather?</h2>
                 <div className='p-1'>
                   <label className='form-control align-baseline border-0'>...{this.props.question.optionOne.text}...</label>
-                  <Link to={`/question/${this.props.question.id}`}>
-                    <button className="btn btn-primary" type="submit">View Poll</button>
-                  </Link>
+                  {
+                    this.props.answered ?
+                      <Link to={`/results/${this.props.question.id}`}>
+                        <button className="btn btn-primary" type="submit">View Poll</button>
+                      </Link>
+                      :
+                      <Link to={`/question/${this.props.question.id}`}>
+                        <button className="btn btn-primary" type="submit">View Poll</button>
+                      </Link>
+                  }
                 </div>
               </div>
             </div>

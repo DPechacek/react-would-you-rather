@@ -2,7 +2,6 @@ import { saveQuestion, saveQuestionAnswer } from "../utils/api";
 import { showLoading, hideLoading } from 'react-redux-loading';
 import {addAnswerToQuestion, addQuestionToUser} from "./users";
 
-
 export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
 export const ADD_QUESTION_ANSWER = 'ADD_QUESTION_ANSWER';
 export const REMOVE_QUESTION_ANSWER = 'REMOVE_QUESTION_ANSWER';
@@ -16,7 +15,7 @@ export function receiveQuestions(questions) {
     }
 }
 
-export function answerQuestion({qid, authedUser, answer }) {
+export function answerQuestion(qid, authedUser, answer) {
     return {
         type: ADD_QUESTION_ANSWER,
         qid: qid,
@@ -25,7 +24,7 @@ export function answerQuestion({qid, authedUser, answer }) {
     }
 }
 
-export function unanswerQuestion({qid, authedUser, answer}) {
+export function unanswerQuestion(qid, authedUser, answer) {
     return {
         type: REMOVE_QUESTION_ANSWER,
         qid: qid,
@@ -34,17 +33,18 @@ export function unanswerQuestion({qid, authedUser, answer}) {
     }
 }
 
-export function handleAnswerQuestion(answerInfo) {
-    return(dispatch) => {
-
+export function handleAnswerQuestion(qid, answer) {
+    return(dispatch, getState) => {
+        const { authedUser} = getState();
+        
         dispatch(showLoading());
-        dispatch(answerQuestion(answerInfo));
-        dispatch(addAnswerToQuestion(answerInfo));
+        dispatch(answerQuestion(qid, authedUser, answer));
+        dispatch(addAnswerToQuestion(qid, authedUser, answer));
 
-        return saveQuestionAnswer(answerInfo)
+        return saveQuestionAnswer(qid, authedUser, answer)
             .catch((e) => {
                 console.warn('Error in saveQuestionAnswer', e);
-                dispatch(unanswerQuestion(answerInfo));
+                dispatch(unanswerQuestion(qid, authedUser, answer));
                 alert('There was an error answering the question. Try again.');
                 return false;
             })
@@ -75,7 +75,7 @@ export function handleAddQuestion(optionOneText, optionTwoText) {
         })
         .then((question) => {
             dispatch(addQuestion(question));
-            dispatch(addQuestionToUser(question));
+            dispatch(addQuestionToUser(authedUser, question.id));
         })
         .finally(() => dispatch(hideLoading()))
     }
