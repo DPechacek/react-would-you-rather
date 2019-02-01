@@ -1,3 +1,9 @@
+/**
+ * Logs all state changes
+ *
+ * @param store
+ * @returns {function(*): function(*=): *}
+ */
 const logger = (store) => (next) => (action) => {
     console.group(action.type);
         console.log('The action: ', action);

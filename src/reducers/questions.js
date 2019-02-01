@@ -1,22 +1,18 @@
 import { ADD_QUESTION, ADD_QUESTION_ANSWER, REMOVE_QUESTION_ANSWER, RECEIVE_QUESTIONS } from "../actions/questions";
 
+/**
+ * Handles changes to the questions state
+ * @param state
+ * @param action
+ * @returns {*}
+ */
 export default function questions(state = {}, action) {
     switch (action.type) {
-        /*
-         * action properties:
-         * - questions
-         */
         case RECEIVE_QUESTIONS:
             return {
                 ...state,
                 ...action.questions
             };
-        /*
-         * action properties
-         * - qid
-         * - authedUser
-         * - answer
-         */
         case ADD_QUESTION_ANSWER:
             return {
                 ...state,

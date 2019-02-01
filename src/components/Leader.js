@@ -1,5 +1,12 @@
 import React from 'react';
 
+/**
+ * Shows a user on the leaderboard
+ *
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 export default function Leader (props) {
   const backgroundImage = {
     background: `url(${props.user.avatarURL})`

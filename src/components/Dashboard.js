@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import QuestionList from "./QuestionList";
 
+/**
+ * Displays the home page for the app after the user logs in.
+ */
 class Dashboard extends Component {
   render() {
     return (
@@ -16,7 +19,7 @@ class Dashboard extends Component {
                   <a className='nav-link' data-toggle="tab" href="#answeredQuestions">Answered Questions</a>
                 </li>
               </ul>
-              
+              {/* Shows the answered and unanswered questions */}
               <div className="tab-content">
                 <div className="tab-pane active container" id="unansweredQuestions">
                   <QuestionList key='unansweredQuestions' questions={this.props.unansweredQuestionIds} answered={false}/>

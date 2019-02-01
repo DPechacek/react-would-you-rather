@@ -11,6 +11,9 @@ import NewQuestion from "./NewQuestion";
 import QuestionResults from "./QuestionResults";
 import LeaderBoard from "./LeaderBoard";
 
+/**
+ * Root component for the app.
+ */
 class App extends Component {
 
     componentDidMount() {

@@ -3,6 +3,9 @@ import {connect} from 'react-redux';
 import {Redirect} from "react-router-dom";
 import {handleAddQuestion} from "../actions/questions";
 
+/**
+ * Creating a new poll question
+ */
 class NewQuestion extends Component {
   state = {
     option1: '',
@@ -10,12 +13,22 @@ class NewQuestion extends Component {
     toHome: false
   };
   
+  /**
+   * Handles updating the state for the option changed
+   *
+   * @param event
+   */
   handleChange = (event) => {
     this.setState({
       [event.target.id]: event.target.value
     });
   };
   
+  /**
+   * Handles submitting the new question
+   *
+   * @param event
+   */
   handleSubmit = (event) => {
     event.preventDefault();
     
@@ -24,6 +37,7 @@ class NewQuestion extends Component {
     
     dispatch(handleAddQuestion(option1, option2));
     
+    // reset the state
     this.setState(() => ({
       option1: '',
       option2: '',
@@ -34,9 +48,11 @@ class NewQuestion extends Component {
   render() {
     const { loggedIn } = this.props;
   
+    // redirect to login if no current user
     if(loggedIn !== true) {
       return <Redirect to='/' />
     }
+    // or go back to home if user has created a question
     else if(this.state.toHome === true) {
       return <Redirect to='/home' />
     }

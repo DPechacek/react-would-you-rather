@@ -5,6 +5,13 @@ import {
     REMOVE_ANSWER_FOR_QUESTION
 } from "../actions/users";
 
+/**
+ * Handles changes to the users state
+ * 
+ * @param state
+ * @param action
+ * @returns {*}
+ */
 export default function users(state = {}, action) {
     switch(action.type) {
         case RECEIVE_USERS:

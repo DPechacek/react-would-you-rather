@@ -4,6 +4,11 @@ import { showLoading, hideLoading } from 'react-redux-loading';
 import {setAuthedUser} from "./authedUser";
 import {receiveQuestions} from "./questions";
 
+/**
+ * Gets all the data we need.
+ *
+ * @returns {function(*): Promise<[any, any, any, any, any, any, any, any, any, any] | never>}
+ */
 export function handleInitialData() {
     return (dispatch) => {
         dispatch(showLoading());

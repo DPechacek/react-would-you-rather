@@ -3,18 +3,31 @@ import {connect} from 'react-redux';
 import { handleAnswerQuestion } from "../actions/questions";
 import { Redirect } from 'react-router-dom';
 
+/**
+ * Displays the question so the user can answer it
+ */
 class QuestionDetail extends Component {
   state = {
     selectedOption: null,
     toResults: false
   };
   
+  /**
+   * Handles setting the selected option
+   *
+   * @param event
+   */
   handleChange = (event) => {
     this.setState({
       selectedOption: event.target.value
     });
   }
   
+  /**
+   * Handles submitting the users answer
+   *
+   * @param event
+   */
   handleSubmit = (event) => {
     event.preventDefault();
   
@@ -30,6 +43,7 @@ class QuestionDetail extends Component {
   render() {
     const { loggedIn } = this.props;
   
+    // if a user is not logged in, go back to home page
     if(loggedIn !== true) {
       return <Redirect to='/' />
     }
@@ -39,7 +53,10 @@ class QuestionDetail extends Component {
     const backgroundImage = {
       background: `url(${author.avatarURL})`
     };
-    
+  
+    /**
+     * redirects to question results after user answers
+     */
     if(this.state.toResults === true) {
       const { question } = this.props;
       return <Redirect to={`/results/${question.id}`} />

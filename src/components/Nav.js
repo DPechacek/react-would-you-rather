@@ -4,8 +4,15 @@ import {connect} from "react-redux";
 import {button} from "bootstrap";
 import {logoutAuthedUser} from "../actions/authedUser";
 
+/**
+ * Nav bar for switching pages
+ */
 class Nav extends Component {
   
+  /**
+   * handles logging out
+   * @param event
+   */
   handleClick = (event) => {
     const {dispatch} = this.props;
     
@@ -14,7 +21,8 @@ class Nav extends Component {
   
   render() {
     const { loggedIn } = this.props;
-    
+  
+    // if a user is not logged in, go back to home page
     if(loggedIn !== true) {
       return <Redirect to='/' />
     }

@@ -2,17 +2,20 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Redirect} from "react-router-dom";
 
+/**
+ * Shows the results of the question poll
+ */
 class QuestionResults extends Component {
   render() {
     const {loggedIn, questionId, users, questions} = this.props;
-    
+  
+    // if a user is not logged in, go back to home page
     if (loggedIn !== true) {
       return <Redirect to='/'/>
     }
   
     const question = questions[questionId];
     const author = users[question.author];
-    
     const backgroundImage = {
       background: `url(${author.avatarURL})`
     };

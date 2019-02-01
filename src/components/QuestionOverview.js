@@ -2,10 +2,14 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link, Redirect} from "react-router-dom";
 
+/**
+ * Displays the overview of the question
+ */
 class QuestionOverview extends Component {
   render() {
     const { questionId, loggedIn, questions, users, authedUser } = this.props;
   
+    // if a user is not logged in, go back to home page
     if(loggedIn !== true) {
       return <Redirect to='/' />
     }
