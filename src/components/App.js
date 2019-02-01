@@ -9,6 +9,7 @@ import Home from './Home';
 import QuestionDetail from "./QuestionDetail";
 import NewQuestion from "./NewQuestion";
 import QuestionResults from "./QuestionResults";
+import LeaderBoard from "./LeaderBoard";
 
 class App extends Component {
 
@@ -30,11 +31,12 @@ class App extends Component {
                                         ? null
                                         : <div>
                                             <Nav/>
-                                            <Route path='/' exact component={Login}/>
-                                            <Route path='/home' exact component={Home}/>
-                                            <Route path='/question/:id' component={QuestionDetail}/>
-                                            <Route path='/new' exact component={NewQuestion}/>
-                                            <Route path='/results/:id' component={QuestionResults}/>
+                                            <Route path='/' exact component={Login} />
+                                            <Route path='/home' exact component={Home} />
+                                            <Route path='/questions/:id' component={QuestionDetail} />
+                                            <Route path='/add' exact component={NewQuestion} />
+                                            <Route path='/results/:id' component={QuestionResults} />
+                                            <Route path='/leaderboard' component={LeaderBoard} />
                                         </div>
                                 }
                             </div>

@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 class Login extends Component {
     state = {
         selectedUser: null
-    }
+    };
 
     handleChange = (event) => {
         const selectedUser = event.target.value;

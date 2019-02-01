@@ -71,6 +71,10 @@ code {
   padding-left: 0;
 }
 
+.nav a {
+  color: black;
+}
+
 ul {
   padding-left: 0;
 }
@@ -91,4 +95,8 @@ li {
   height: 20rem;
   background: center no-repeat;
   background-size: cover;
+}
+
+.buttonNoMargin {
+  margin: 0px auto;
 }

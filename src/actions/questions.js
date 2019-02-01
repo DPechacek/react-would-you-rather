@@ -1,6 +1,6 @@
 import { saveQuestion, saveQuestionAnswer } from "../utils/api";
 import { showLoading, hideLoading } from 'react-redux-loading';
-import {addAnswerToQuestion, addQuestionToUser} from "./users";
+import {addAnswerToQuestion, addQuestionToUser, removeAnswerForQuestion} from "./users";
 
 export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
 export const ADD_QUESTION_ANSWER = 'ADD_QUESTION_ANSWER';
@@ -41,10 +41,11 @@ export function handleAnswerQuestion(qid, answer) {
         dispatch(answerQuestion(qid, authedUser, answer));
         dispatch(addAnswerToQuestion(qid, authedUser, answer));
 
-        return saveQuestionAnswer(qid, authedUser, answer)
+        return saveQuestionAnswer(authedUser, qid, answer)
             .catch((e) => {
                 console.warn('Error in saveQuestionAnswer', e);
                 dispatch(unanswerQuestion(qid, authedUser, answer));
+                dispatch(removeAnswerForQuestion(qid, authedUser))
                 alert('There was an error answering the question. Try again.');
                 return false;
             })

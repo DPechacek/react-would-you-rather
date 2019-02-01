@@ -1,19 +1,11 @@
 import { _getUsers, _getQuestions, _saveQuestion, _saveQuestionAnswer } from "./_Data";
 
 export function getUsers() {
-    return Promise.all([
-        _getUsers()
-    ]).then(([users]) => ({
-        users
-    }))
+    return _getUsers();
 }
 
 export function getQuestions() {
-    return Promise.all([
-        _getQuestions()
-    ]).then(([questions]) => ({
-        questions
-    }))
+    return _getQuestions();
 }
 
 export function saveQuestion(question) {

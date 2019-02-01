@@ -8,21 +8,14 @@ export function handleInitialData() {
     return (dispatch) => {
         dispatch(showLoading());
         dispatch(setAuthedUser(null));
-        return getUsers()
-            .then(({ users }) => {
-                dispatch(receiveUsers(users));
-                dispatch(hideLoading());
-            });
-    }
-}
-
-export function getInitialQuestions() {
-    return (dispatch) => {
-        dispatch(showLoading());
-        return getQuestions()
-            .then(({ questions }) => {
-                dispatch(receiveQuestions(questions));
-                dispatch(hideLoading());
-            });
+  
+        return Promise.all([
+          getUsers(),
+          getQuestions()
+        ]).then(([ users, questions ]) => {
+          dispatch(receiveUsers(users));
+          dispatch(receiveQuestions(questions));
+          dispatch(hideLoading());
+        });
     }
 }

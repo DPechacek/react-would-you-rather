@@ -1,18 +1,28 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 
 class QuestionOverview extends Component {
   render() {
+    const { questionId, loggedIn, questions, users, authedUser } = this.props;
+  
+    if(loggedIn !== true) {
+      return <Redirect to='/' />
+    }
+  
+    const question = questions[questionId];
+    const author = users[question.author];
+    const currentUser = users[authedUser];
+    const answered = Object.keys(currentUser.answers).includes(questionId);
     const backgroundImage = {
-      background: `url(${this.props.author.avatarURL})`
+      background: `url(${author.avatarURL})`
     };
     
     {/*Based on https://stackoverflow.com/questions/39225608/bootstrap-flexbox-card-move-image-to-left-right-side-on-desktop*/}
     return (
         <div className="card p-3">
           <div className="card-header text-left">
-            <h3>{this.props.author.name} asks:</h3>
+            <h3>{author.name} asks:</h3>
           </div>
           <div className="row p-1">
             <div className="col-md-6">
@@ -23,14 +33,14 @@ class QuestionOverview extends Component {
               <div className="card-block p-3">
                 <h2 className="card-title">Would you rather?</h2>
                 <div className='p-1'>
-                  <label className='form-control align-baseline border-0'>...{this.props.question.optionOne.text}...</label>
+                  <label className='form-control align-baseline border-0'>...{question.optionOne.text}...</label>
                   {
-                    this.props.answered ?
-                      <Link to={`/results/${this.props.question.id}`}>
+                    answered ?
+                      <Link to={`/results/${question.id}`}>
                         <button className="btn btn-primary" type="submit">View Poll</button>
                       </Link>
                       :
-                      <Link to={`/question/${this.props.question.id}`}>
+                      <Link to={`/questions/${question.id}`}>
                         <button className="btn btn-primary" type="submit">View Poll</button>
                       </Link>
                   }
@@ -44,13 +54,12 @@ class QuestionOverview extends Component {
   }
 }
 
-function mapStateToProps({ questions, users }, { questionId }) {
-  const question = questions[questionId];
-  const author = users[question.author];
-  
+function mapStateToProps({ questions, users, authedUser }) {
   return {
-    question: questions[questionId],
-    author: author
+    authedUser: authedUser,
+    questions: questions,
+    users: users,
+    loggedIn: authedUser !== null,
   }
 }
 

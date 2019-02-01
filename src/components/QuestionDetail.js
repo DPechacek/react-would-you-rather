@@ -28,8 +28,16 @@ class QuestionDetail extends Component {
   }
   
   render() {
+    const { loggedIn } = this.props;
+  
+    if(loggedIn !== true) {
+      return <Redirect to='/' />
+    }
+    
+    const question = this.props.questions[this.props.questionId];
+    const author = this.props.users[question.author];
     const backgroundImage = {
-      background: `url(${this.props.author.avatarURL})`
+      background: `url(${author.avatarURL})`
     };
     
     if(this.state.toResults === true) {
@@ -43,7 +51,7 @@ class QuestionDetail extends Component {
           <div className='col-md-8'>
             <div className="card p-3">
               <div className="card-header text-left">
-                <h3>{this.props.author.name} asks:</h3>
+                <h3>{author.name} asks:</h3>
               </div>
               <div className="row">
                 <div className="col-md-6">
@@ -83,7 +91,6 @@ class QuestionDetail extends Component {
                     </form>
                   </div>
                 </div>
-              
               </div>
             </div>
           </div>
@@ -93,15 +100,14 @@ class QuestionDetail extends Component {
   }
 }
 
-function mapStateToProps({ questions, users }, props) {
+function mapStateToProps({ questions, users, authedUser }, props) {
   const { id } = props.match.params;
-  const question = questions[id];
-  const author = users[question.author];
   
   return {
-    question: questions[id],
-    author: author,
-    id: props.match.params.id
+    questions: questions,
+    users: users,
+    questionId: id,
+    loggedIn: authedUser !== null
   }
 }
 

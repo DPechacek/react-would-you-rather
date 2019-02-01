@@ -1,13 +1,9 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { getInitialQuestions } from '../actions/shared';
 import Dashboard from "./Dashboard";
 
 class Home extends Component {
-    componentDidMount() {
-        this.props.dispatch(getInitialQuestions())
-    }
 
     render() {
         const { loggedIn } = this.props;
@@ -24,7 +20,7 @@ class Home extends Component {
     }
 }
 
-function mapStateToProps({ authedUser, questions}) {
+function mapStateToProps({ authedUser, questions }) {
     return {
         loading: questions === null,
         loggedIn: authedUser !== null
