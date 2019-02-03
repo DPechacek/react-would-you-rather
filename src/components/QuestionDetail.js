@@ -41,13 +41,6 @@ class QuestionDetail extends Component {
   }
   
   render() {
-    const { loggedIn } = this.props;
-  
-    // if a user is not logged in, go back to home page
-    if(loggedIn !== true) {
-      return <Redirect to='/' />
-    }
-    
     const question = this.props.questions[this.props.questionId];
     const author = this.props.users[question.author];
     const backgroundImage = {
@@ -88,7 +81,7 @@ class QuestionDetail extends Component {
                                    onChange={this.handleChange}/>
                           </div>
                         </div>
-                        <label className='form-control align-baseline'>{this.props.question.optionOne.text}?</label>
+                        <label className='form-control align-baseline'>{question.optionOne.text}?</label>
                       </div>
                       <span className='input-group'>
                         <p className='form-control border-0 font-weight-bold'>OR</p>
@@ -102,7 +95,7 @@ class QuestionDetail extends Component {
                                    onChange={this.handleChange}/>
                           </div>
                         </div>
-                        <label className='form-control align-baseline'>{this.props.question.optionTwo.text}?</label>
+                        <label className='form-control align-baseline'>{question.optionTwo.text}?</label>
                       </div>
                       <button className="btn btn-primary" type="submit">Submit</button>
                     </form>
@@ -117,14 +110,13 @@ class QuestionDetail extends Component {
   }
 }
 
-function mapStateToProps({ questions, users, authedUser }, props) {
+function mapStateToProps({ questions, users }, props) {
   const { id } = props.match.params;
   
   return {
     questions: questions,
     users: users,
     questionId: id,
-    loggedIn: authedUser !== null
   }
 }
 

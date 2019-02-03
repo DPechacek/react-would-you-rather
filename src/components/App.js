@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react'
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Redirect, Route} from 'react-router-dom';
 import LoadingBar from 'react-redux-loading';
 import {connect} from 'react-redux';
 import Login from "./Login";
@@ -19,8 +19,10 @@ class App extends Component {
     componentDidMount() {
         this.props.dispatch(handleInitialData())
     }
-
+    
     render() {
+        const { loggedIn } = this.props;
+        
         return (
             <Router>
                 <Fragment>
@@ -35,11 +37,11 @@ class App extends Component {
                                         : <div>
                                             <Nav/>
                                             <Route path='/' exact component={Login} />
-                                            <Route path='/home' exact component={Home} />
-                                            <Route path='/questions/:id' component={QuestionDetail} />
-                                            <Route path='/add' exact component={NewQuestion} />
-                                            <Route path='/results/:id' component={QuestionResults} />
-                                            <Route path='/leaderboard' component={LeaderBoard} />
+                                            <PrivateRoute path='/home' exact loggedIn={loggedIn} component={Home} />
+                                            <PrivateRoute path='/questions/:id' loggedIn={loggedIn} component={QuestionDetail} />
+                                            <PrivateRoute path='/add' exact loggedIn={loggedIn} component={NewQuestion} />
+                                            <PrivateRoute path='/results/:id' loggedIn={loggedIn} component={QuestionResults} />
+                                            <PrivateRoute path='/leaderboard' loggedIn={loggedIn} component={LeaderBoard} />
                                         </div>
                                 }
                             </div>
@@ -51,9 +53,22 @@ class App extends Component {
     }
 }
 
-function mapStateToProps({users}) {
+// https://tylermcginnis.com/react-router-protected-routes-authentication/
+const PrivateRoute = ({ component: Component, ...rest }) => (
+    <Route {...rest} render={(props) => (
+        rest.loggedIn === true
+            ? <Component {...props} />
+            : <Redirect to={{
+                pathname: '/',
+                state: { from: props.location }
+            }} />
+    )} />
+)
+
+function mapStateToProps({users, questions, authedUser}) {
     return {
-        loading: Object.keys(users).length === 0
+        loading: Object.keys(users).length === 0 || Object.keys(questions).length === 0,
+        loggedIn: authedUser !== null,
     }
 }
 

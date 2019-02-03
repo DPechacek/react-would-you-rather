@@ -1,18 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Link, Redirect} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 /**
  * Displays the overview of the question
  */
 class QuestionOverview extends Component {
   render() {
-    const { questionId, loggedIn, questions, users, authedUser } = this.props;
-  
-    // if a user is not logged in, go back to home page
-    if(loggedIn !== true) {
-      return <Redirect to='/' />
-    }
+    const { questionId, questions, users, authedUser } = this.props;
   
     const question = questions[questionId];
     const author = users[question.author];
@@ -22,7 +17,7 @@ class QuestionOverview extends Component {
       background: `url(${author.avatarURL})`
     };
     
-    {/*Based on https://stackoverflow.com/questions/39225608/bootstrap-flexbox-card-move-image-to-left-right-side-on-desktop*/}
+    /*Based on https://stackoverflow.com/questions/39225608/bootstrap-flexbox-card-move-image-to-left-right-side-on-desktop*/
     return (
         <div className="card p-3">
           <div className="card-header text-left">
@@ -63,7 +58,6 @@ function mapStateToProps({ questions, users, authedUser }) {
     authedUser: authedUser,
     questions: questions,
     users: users,
-    loggedIn: authedUser !== null,
   }
 }
 

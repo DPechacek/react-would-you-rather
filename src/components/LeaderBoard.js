@@ -1,19 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Leader from "./Leader";
-import {Redirect} from "react-router-dom";
 
 /**
  * Shows the leaderboard
  */
 class LeaderBoard extends Component {
   render() {
-    const { loggedIn, users } = this.props;
-  
-    // if a user is not logged in, go back to home page
-    if(loggedIn !== true) {
-      return <Redirect to='/' />
-    }
+    const { users } = this.props;
     
     return (
       <div>
@@ -37,10 +31,9 @@ class LeaderBoard extends Component {
   }
 }
 
-function mapStateToProps({ users, authedUser }) {
+function mapStateToProps({ users }) {
   return {
-    users: users,
-    loggedIn: authedUser !== null
+    users: users
   }
 }
 

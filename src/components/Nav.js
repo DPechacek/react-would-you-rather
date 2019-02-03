@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {NavLink, Redirect, withRouter} from 'react-router-dom'
+import {NavLink, withRouter} from 'react-router-dom'
 import {connect} from "react-redux";
 import {button} from "bootstrap";
 import {logoutAuthedUser} from "../actions/authedUser";
@@ -20,13 +20,6 @@ class Nav extends Component {
   }
   
   render() {
-    const { loggedIn } = this.props;
-  
-    // if a user is not logged in, go back to home page
-    if(loggedIn !== true) {
-      return <Redirect to='/' />
-    }
-    
     return (
       <div className='d-flex justify-content-between'>
         <div className='p-2'>
@@ -74,8 +67,7 @@ class Nav extends Component {
 function mapStateToProps({authedUser, users}) {
   return {
     authedUser: authedUser,
-    currentUser: users[authedUser],
-    loggedIn: authedUser !== null
+    currentUser: users[authedUser]
   }
 }
 

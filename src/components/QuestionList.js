@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
 import QuestionOverview from "./QuestionOverview";
 
 /**
@@ -23,4 +22,4 @@ class QuestionList extends Component {
   }
 }
 
-export default connect()(QuestionList);
+export default QuestionList;

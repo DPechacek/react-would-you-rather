@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
 import {Redirect} from "react-router-dom";
 import {handleAddQuestion} from "../actions/questions";
 
@@ -46,14 +45,8 @@ class NewQuestion extends Component {
   };
   
   render() {
-    const { loggedIn } = this.props;
-  
-    // redirect to login if no current user
-    if(loggedIn !== true) {
-      return <Redirect to='/' />
-    }
     // or go back to home if user has created a question
-    else if(this.state.toHome === true) {
+    if(this.state.toHome === true) {
       return <Redirect to='/home' />
     }
     
@@ -114,10 +107,4 @@ class NewQuestion extends Component {
   }
 }
 
-function mapStateToProps({ authedUser }) {
-  return {
-    loggedIn: authedUser !== null
-  }
-}
-
-export default connect(mapStateToProps)(NewQuestion);
+export default NewQuestion;
