@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react'
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
 import LoadingBar from 'react-redux-loading';
 import {connect} from 'react-redux';
 import Login from "./Login";
@@ -39,6 +39,7 @@ class App extends Component {
                                         : <div>
                                             <Nav/>
                                             <Switch>
+                                                <Route exact path='/' render={() => (<Redirect to='/login'/>)}/>
                                                 <Route path='/login' exact component={Login} />
                                                 <PrivateRoute path='/home' exact loggedIn={loggedIn} component={Home} />
                                                 <PrivateRoute path='/questions/:questionId' loggedIn={loggedIn} component={QuestionDetail} />
