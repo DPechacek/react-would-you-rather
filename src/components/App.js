@@ -44,7 +44,7 @@ class App extends Component {
                                                 <PrivateRoute path='/home' exact loggedIn={loggedIn} component={Home} />
                                                 <PrivateRoute path='/questions/:questionId' loggedIn={loggedIn} component={QuestionDetail} />
                                                 <PrivateRoute path='/add' exact loggedIn={loggedIn} component={NewQuestion} />
-                                                <PrivateRoute path='/results/:id' loggedIn={loggedIn} component={QuestionResults} />
+                                                <PrivateRoute path='/results/:questionId' loggedIn={loggedIn} component={QuestionResults} />
                                                 <PrivateRoute path='/leaderboard' loggedIn={loggedIn} component={LeaderBoard} />
                                                 <Route path='/error' component={Error} />
                                                 <Route component={Error} />

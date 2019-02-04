@@ -23,7 +23,7 @@ class QuestionResults extends Component {
     const totalAnswers = question.optionOne.votes.length + question.optionTwo.votes.length;
     
     return (
-        <div key={this.props.id} className='container'>
+        <div key={this.props.questionId} className='container'>
           <div className='row justify-content-center'>
             <div className='col-md-8'>
               <div className="card p-3">
@@ -87,13 +87,13 @@ class QuestionResults extends Component {
 }
 
 function mapStateToProps({questions, users, authedUser}, props) {
-  const {id} = props.match.params;
+  const {questionId} = props.match.params;
   
   return {
     questions: questions,
     users: users,
     authedUser: authedUser,
-    questionId: id,
+    questionId: questionId,
   }
 }
 

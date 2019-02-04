@@ -115,9 +115,12 @@ class QuestionDetail extends Component {
 }
 
 function mapStateToProps({ questions, users }, props) {
+  const { questionId } = props.match.params;
+  
   return {
     questions: questions,
     users: users,
+    questionId: questionId,
   }
 }
 
