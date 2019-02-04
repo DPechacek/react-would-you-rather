@@ -31,9 +31,9 @@ class QuestionDetail extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
   
-    const { dispatch, question } = this.props;
+    const { dispatch, questionId } = this.props;
   
-    dispatch(handleAnswerQuestion(question.id, this.state.selectedOption));
+    dispatch(handleAnswerQuestion(questionId, this.state.selectedOption));
   
     this.setState({
       toResults: true
@@ -42,6 +42,11 @@ class QuestionDetail extends Component {
   
   render() {
     const question = this.props.questions[this.props.questionId];
+    
+    if(question === undefined || question === null) {
+      return <Redirect to='/error' />
+    }
+    
     const author = this.props.users[question.author];
     const backgroundImage = {
       background: `url(${author.avatarURL})`
@@ -51,12 +56,11 @@ class QuestionDetail extends Component {
      * redirects to question results after user answers
      */
     if(this.state.toResults === true) {
-      const { question } = this.props;
-      return <Redirect to={`/results/${question.id}`} />
+      return <Redirect to={`/results/${this.props.questionId}`} />
     }
     
     return (
-      <div key={this.props.id} className='container'>
+      <div key={this.props.questionId} className='container'>
         <div className='row justify-content-center'>
           <div className='col-md-8'>
             <div className="card p-3">
@@ -111,12 +115,9 @@ class QuestionDetail extends Component {
 }
 
 function mapStateToProps({ questions, users }, props) {
-  const { id } = props.match.params;
-  
   return {
     questions: questions,
     users: users,
-    questionId: id,
   }
 }
 

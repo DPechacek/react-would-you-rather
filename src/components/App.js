@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react'
-import {BrowserRouter as Router, Redirect, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import LoadingBar from 'react-redux-loading';
 import {connect} from 'react-redux';
 import Login from "./Login";
@@ -10,6 +10,8 @@ import QuestionDetail from "./QuestionDetail";
 import NewQuestion from "./NewQuestion";
 import QuestionResults from "./QuestionResults";
 import LeaderBoard from "./LeaderBoard";
+import PrivateRoute from "./PrivateRoute";
+import Error from './Error';
 
 /**
  * Root component for the app.
@@ -36,12 +38,16 @@ class App extends Component {
                                         ? null
                                         : <div>
                                             <Nav/>
-                                            <Route path='/' exact component={Login} />
-                                            <PrivateRoute path='/home' exact loggedIn={loggedIn} component={Home} />
-                                            <PrivateRoute path='/questions/:id' loggedIn={loggedIn} component={QuestionDetail} />
-                                            <PrivateRoute path='/add' exact loggedIn={loggedIn} component={NewQuestion} />
-                                            <PrivateRoute path='/results/:id' loggedIn={loggedIn} component={QuestionResults} />
-                                            <PrivateRoute path='/leaderboard' loggedIn={loggedIn} component={LeaderBoard} />
+                                            <Switch>
+                                                <Route path='/login' exact component={Login} />
+                                                <PrivateRoute path='/home' exact loggedIn={loggedIn} component={Home} />
+                                                <PrivateRoute path='/questions/:questionId' loggedIn={loggedIn} component={QuestionDetail} />
+                                                <PrivateRoute path='/add' exact loggedIn={loggedIn} component={NewQuestion} />
+                                                <PrivateRoute path='/results/:id' loggedIn={loggedIn} component={QuestionResults} />
+                                                <PrivateRoute path='/leaderboard' loggedIn={loggedIn} component={LeaderBoard} />
+                                                <Route path='/error' component={Error} />
+                                                <Route component={Error} />
+                                            </Switch>
                                         </div>
                                 }
                             </div>
@@ -52,18 +58,6 @@ class App extends Component {
         );
     }
 }
-
-// https://tylermcginnis.com/react-router-protected-routes-authentication/
-const PrivateRoute = ({ component: Component, ...rest }) => (
-    <Route {...rest} render={(props) => (
-        rest.loggedIn === true
-            ? <Component {...props} />
-            : <Redirect to={{
-                pathname: '/',
-                state: { from: props.location }
-            }} />
-    )} />
-)
 
 function mapStateToProps({users, questions, authedUser}) {
     return {

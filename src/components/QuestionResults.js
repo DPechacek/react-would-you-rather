@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Redirect} from "react-router-dom";
 
 /**
  * Shows the results of the question poll
@@ -9,6 +10,11 @@ class QuestionResults extends Component {
     const {questionId, users, questions} = this.props;
   
     const question = questions[questionId];
+  
+    if(question === undefined || question === null) {
+      return <Redirect to='/error' />
+    }
+    
     const author = users[question.author];
     const backgroundImage = {
       background: `url(${author.avatarURL})`

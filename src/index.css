@@ -100,3 +100,8 @@ li {
 .buttonNoMargin {
   margin: 0px auto;
 }
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+}

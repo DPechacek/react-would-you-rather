@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Redirect} from "react-router-dom";
 import {handleAddQuestion} from "../actions/questions";
+import {connect} from "react-redux";
 
 /**
  * Creating a new poll question
@@ -107,4 +108,4 @@ class NewQuestion extends Component {
   }
 }
 
-export default NewQuestion;
+export default connect()(NewQuestion);
